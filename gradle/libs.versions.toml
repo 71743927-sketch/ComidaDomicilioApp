@@ -1,0 +1,39 @@
+[versions]
+agp = "8.6.0"
+kotlin = "1.9.0"
+ksp = "1.9.0-1.0.13"
+androidx-core = "1.13.1"
+androidx-runtime = "2.8.5"
+compose-activity = "1.9.2"
+compose-bom = "2024.09.00"
+compose-constraint-layout = "1.0.1"
+navigation-compose = "2.9.5"
+room = "2.6.1"
+work = "2.9.0"
+
+[libraries]
+androidx-core = { group = "androidx.core", name = "core-ktx", version.ref = "androidx-core" }
+androidx-lifecycle = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "androidx-runtime" }
+androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
+compose-ui = { group = "androidx.compose.ui", name = "ui" }
+compose-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+compose-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+compose-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+compose-contstrain-layout = { group = "androidx.constraintlayout", name = "constraintlayout-compose", version.ref = "compose-constraint-layout" }
+compose-activity = { group = "androidx.activity", name = "activity-compose", version.ref = "compose-activity" }
+navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation-compose" }
+room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
+work-runtime = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "work" }
+
+
+[bundles]
+androidX = ["androidx-core", "androidx-lifecycle"]
+ui = ["compose-ui", "compose-graphics", "compose-tooling-preview", "compose-activity", "androidx-material3", "compose-contstrain-layout"]
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+google-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
