@@ -2,13 +2,18 @@ package com.androidlead.fooddeliveryapp.data.repository
 
 import com.androidlead.fooddeliveryapp.data.database.CartItemDao
 import com.androidlead.fooddeliveryapp.data.database.MenuItemDao
+import com.androidlead.fooddeliveryapp.data.local.UserDao
 import com.androidlead.fooddeliveryapp.data.model.CartItem
 import com.androidlead.fooddeliveryapp.data.model.MenuItem
+import com.androidlead.fooddeliveryapp.data.model.User
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.firstOrNull
+import java.security.MessageDigest
 
 class MainRepository(
     private val menuItemDao: MenuItemDao,
-    private val cartItemDao: CartItemDao
+    private val cartItemDao: CartItemDao,
+    private val userDao: UserDao
 ) {
 
     suspend fun getMenuItems(): List<MenuItem> {
@@ -40,6 +45,34 @@ class MainRepository(
 
     suspend fun clearCart() {
         cartItemDao.clearCart()
+    }
+
+    suspend fun createUser(email: String, password: String): User {
+        val passwordHash = hashPassword(password)
+        val user = User(email = email, passwordHash = passwordHash)
+        userDao.insertUser(user)
+        return user
+    }
+
+    suspend fun loginUser(email: String, password: String): User? {
+        val user = userDao.getUserByEmail(email).firstOrNull()
+        if (user != null) {
+            val passwordHash = hashPassword(password)
+            if (user.passwordHash == passwordHash) {
+                return user
+            }
+        }
+        return null
+    }
+
+    fun observeUser(email: String): Flow<User?> {
+        return userDao.getUserByEmail(email)
+    }
+
+    private fun hashPassword(password: String): String {
+        val digest = MessageDigest.getInstance("SHA-256")
+        val hash = digest.digest(password.toByteArray(Charsets.UTF_8))
+        return hash.fold("") { str, it -> str + "%02x".format(it) }
     }
 
     suspend fun insertInitialMenuItems() {

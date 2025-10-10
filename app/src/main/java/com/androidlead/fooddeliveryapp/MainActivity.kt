@@ -13,7 +13,9 @@ import androidx.navigation.compose.rememberNavController
 import com.androidlead.fooddeliveryapp.data.repository.MainRepository
 import com.androidlead.fooddeliveryapp.ui.Screen
 import com.androidlead.fooddeliveryapp.ui.screen.CartScreen
+import com.androidlead.fooddeliveryapp.ui.screen.CreateAccountScreen
 import com.androidlead.fooddeliveryapp.ui.screen.LoginScreen
+import com.androidlead.fooddeliveryapp.ui.screen.LoginPagoScreen
 import com.androidlead.fooddeliveryapp.ui.screen.MenuScreen
 import com.androidlead.fooddeliveryapp.ui.screen.PaymentScreen
 import com.androidlead.fooddeliveryapp.ui.theme.AppTheme
@@ -24,7 +26,7 @@ class MainActivity : ComponentActivity() {
 
     private val viewModel: MainViewModel by viewModels {
         val database = (application as FoodDeliveryApplication).database
-        ViewModelFactory(MainRepository(database.menuItemDao(), database.cartItemDao()))
+        ViewModelFactory(MainRepository(database.menuItemDao(), database.cartItemDao(), database.userDao()))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,8 +58,14 @@ class MainActivity : ComponentActivity() {
                             onClearCart = { viewModel.clearCart() },
                             onBack = { navController.popBackStack() },
                             onRemoveFromCart = { viewModel.removeFromCart(it) },
-                            onPagar = { navController.navigate(Screen.PaymentScreen.route) }
+                            onPagar = { navController.navigate(Screen.LoginPagoScreen.route) }
                         )
+                    }
+                    composable(Screen.LoginPagoScreen.route) {
+                        LoginPagoScreen(navController = navController, viewModel = viewModel, onBack = { navController.popBackStack() })
+                    }
+                    composable(Screen.CreateAccountScreen.route) {
+                        CreateAccountScreen(navController = navController, viewModel = viewModel, onBack = { navController.popBackStack() })
                     }
                     composable(Screen.PaymentScreen.route) {
                         PaymentScreen(
