@@ -11,7 +11,6 @@ data class ProductHighlightState(
 enum class ProductHighlightType {
     PRIMARY, SECONDARY
 }
-
 data class ProductPreviewState(
     val headline: String = "Mr. Cheezy",
     @DrawableRes val productImg: Int = R.drawable.img_burger,

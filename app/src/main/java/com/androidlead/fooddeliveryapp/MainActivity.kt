@@ -1,6 +1,7 @@
 package com.androidlead.fooddeliveryapp
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -14,6 +15,7 @@ import com.androidlead.fooddeliveryapp.ui.Screen
 import com.androidlead.fooddeliveryapp.ui.screen.CartScreen
 import com.androidlead.fooddeliveryapp.ui.screen.LoginScreen
 import com.androidlead.fooddeliveryapp.ui.screen.MenuScreen
+import com.androidlead.fooddeliveryapp.ui.screen.PaymentScreen
 import com.androidlead.fooddeliveryapp.ui.theme.AppTheme
 import com.androidlead.fooddeliveryapp.ui.viewmodel.MainViewModel
 import com.androidlead.fooddeliveryapp.ui.viewmodel.ViewModelFactory
@@ -53,7 +55,20 @@ class MainActivity : ComponentActivity() {
                             menuItems = menuItems,
                             onClearCart = { viewModel.clearCart() },
                             onBack = { navController.popBackStack() },
-                            onRemoveFromCart = { viewModel.removeFromCart(it) }
+                            onRemoveFromCart = { viewModel.removeFromCart(it) },
+                            onPagar = { navController.navigate(Screen.PaymentScreen.route) }
+                        )
+                    }
+                    composable(Screen.PaymentScreen.route) {
+                        PaymentScreen(
+                            onBack = { navController.popBackStack() },
+                            onPaymentConfirmed = {
+                                viewModel.clearCart()
+                                Toast.makeText(applicationContext, "Pago exitoso!", Toast.LENGTH_SHORT).show()
+                                navController.navigate(Screen.MenuScreen.route) {
+                                    popUpTo(Screen.MenuScreen.route) { inclusive = true }
+                                }
+                            }
                         )
                     }
                 }

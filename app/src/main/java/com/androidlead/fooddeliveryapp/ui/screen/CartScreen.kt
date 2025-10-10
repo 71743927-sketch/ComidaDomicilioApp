@@ -32,7 +32,8 @@ fun CartScreen(
     menuItems: List<MenuItem>,
     onClearCart: () -> Unit,
     onBack: () -> Unit,
-    onRemoveFromCart: (CartItem) -> Unit
+    onRemoveFromCart: (CartItem) -> Unit,
+    onPagar: () -> Unit
 ) {
     val total = cartItems.sumOf { cartItem ->
         val menuItem = menuItems.find { it.id == cartItem.menuItemId }!!
@@ -73,8 +74,16 @@ fun CartScreen(
                 }
             }
             Text(text = "Total: $${total}")
-            Button(onClick = onClearCart) {
-                Text("Clear Cart")
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceAround
+            ) {
+                Button(onClick = onClearCart) {
+                    Text("Clear Cart")
+                }
+                Button(onClick = onPagar) {
+                    Text("Pagar")
+                }
             }
         }
     }

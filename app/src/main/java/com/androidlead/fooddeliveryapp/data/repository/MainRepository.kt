@@ -47,7 +47,16 @@ class MainRepository(
             menuItemDao.insertAll(
                 MenuItem(name = "Pizza", description = "Deliciosa pizza de queso", price = 12.99, imageUrl = "pizza.png"),
                 MenuItem(name = "Burger", description = "Clásica hamburguesa de ternera", price = 8.99, imageUrl = "hamburguesa.png"),
-                MenuItem(name = "Pasta", description = "Cremosa pasta Alfredo", price = 10.99, imageUrl = "pasta.png")
+                MenuItem(name = "Pasta", description = "Cremosa pasta Alfredo", price = 10.99, imageUrl = "pasta.png"),
+                MenuItem(name = "Ensalada", description = "Ensalada César con pollo a la parrilla", price = 7.99, imageUrl = "ensalada.png"),
+                MenuItem(name = "Tacos", description = "Tacos al pastor con piña", price = 9.99, imageUrl = "tacos.png"),
+                MenuItem(name = "Sushi", description = "Rollos de sushi variados", price = 14.99, imageUrl = "sushi.png"),
+                MenuItem(name = "Sopa", description = "Sopa de verduras de temporada", price = 6.50, imageUrl = "sopa.png"),
+                MenuItem(name = "Sandwich", description = "Sandwich de pavo y queso", price = 7.50, imageUrl = "sandwich.png"),
+                MenuItem(name = "Jugo de Naranja", description = "Jugo de naranja recién exprimido", price = 3.50, imageUrl = "jugo_naranja.png"),
+                MenuItem(name = "Pastel de Chocolate", description = "Delicioso pastel de chocolate", price = 5.50, imageUrl = "pastel_chocolate.png"),
+                MenuItem(name = "Café", description = "Café recién hecho", price = 2.50, imageUrl = "cafe.png"),
+                MenuItem(name = "Té", description = "Té caliente", price = 2.00, imageUrl = "te.png")
             )
         }
     }
